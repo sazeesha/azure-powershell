@@ -64,7 +64,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
             ValueFromPipelineByPropertyName = true,
             Position = 5,
             HelpMessage = "Disable/Enable Namespace.")]
-        public Management.EventHub.Models.NamespaceState State { get; set; }
+        public Management.EventHub.Models.NamespaceState? State { get; set; }
 
         [Parameter(Mandatory = false,
             ValueFromPipelineByPropertyName = true,

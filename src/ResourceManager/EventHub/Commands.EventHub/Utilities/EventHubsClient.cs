@@ -66,24 +66,26 @@ namespace Microsoft.Azure.Commands.Eventhub
         public NamespaceAttributes BeginCreateNamespace(string resourceGroupName, string namespaceName, string location, string skuName, int? skuCapacity, bool? createACSNamespace, Dictionary<string, string> tags)
         {
             NamespaceCreateOrUpdateParameters parameter = new NamespaceCreateOrUpdateParameters();
-
             parameter.Location = location;
             
             if (tags != null)
             {
                 parameter.Tags = new Dictionary<string, string>(tags);
-            }            
-            
-            //if (skuName != null)
-            //{
-            //    parameter.Sku.Name = skuName;
-            //    parameter.Sku.Tier = skuName;
-            //}
+            }
 
-            //if (skuCapacity.HasValue)
-            //{
-            //    parameter.Sku.Capacity = skuCapacity;
-            //}
+            if (skuName != null)
+            {
+                parameter.Sku = new Sku
+                {
+                    Name = skuName,
+                    Tier = skuName
+                };
+            }
+
+            if (skuCapacity.HasValue)
+            {
+                parameter.Sku.Capacity = skuCapacity;
+            }
 
             if (createACSNamespace.HasValue)
             {
@@ -94,25 +96,29 @@ namespace Microsoft.Azure.Commands.Eventhub
             return new NamespaceAttributes(response);
         }
 
-        public NamespaceAttributes UpdateNamespace(string resourceGroupName, string namespaceName, string location, string skuName, int? skuCapacity, Management.EventHub.Models.NamespaceState state, Dictionary<string, string> tags)
+        public NamespaceAttributes UpdateNamespace(string resourceGroupName, string namespaceName, string location, string skuName, int? skuCapacity, Management.EventHub.Models.NamespaceState? state, Dictionary<string, string> tags)
         {
 
             var parameter = new NamespaceCreateOrUpdateParameters()
             {
-                Location = location,
-                Status = ((state == Management.EventHub.Models.NamespaceState.Disabled) ? state : Management.EventHub.Models.NamespaceState.Active)
+                Location = location
             };
 
-            //if (skuName != null)
-            //{
-            //    parameter.Sku.Name = skuName;
-            //    parameter.Sku.Tier = skuName;
-            //}
+            if(state.HasValue)
+            {
+                parameter.Status = state;
+            }
 
-            //if (skuCapacity.HasValue)
-            //{
-            //    parameter.Sku.Capacity = skuCapacity;
-            //}
+            if (skuName != null)
+            {
+                parameter.Sku.Name = skuName;
+                parameter.Sku.Tier = skuName;
+            }
+
+            if (skuCapacity.HasValue)
+            {
+                parameter.Sku.Capacity = skuCapacity;
+            }
 
             if (tags != null && tags.Count() > 0)
             {
