@@ -365,13 +365,12 @@ namespace Microsoft.WindowsAzure.Commands.ScenarioTest
                 try
                 {
                     powershell.Runspace.Events.Subscribers.Clear();
-                    output = powershell.Invoke();
+                 output = powershell.Invoke();
                     if (powershell.Streams.Error.Count > 0)
                     {
                         throw new RuntimeException(
                             "Test failed due to a non-empty error stream, check the error stream in the test log for more details.");
                     }
-
                     return output;
                 }
                 catch (Exception psException)

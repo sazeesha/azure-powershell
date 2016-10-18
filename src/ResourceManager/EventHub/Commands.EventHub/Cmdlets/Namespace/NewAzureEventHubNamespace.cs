@@ -80,7 +80,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 
         public override void ExecuteCmdlet()
         {
-            // Create a new EventHub namespace 
+            // Create a new EventHub namespaces
             var nsAttribute = Client.BeginCreateNamespace(ResourceGroupName, NamespaceName, Location, SkuName, SkuCapacity, CreateACSNamespace, ConvertTagsToDictionary(Tags));
             WriteObject(nsAttribute);
         }

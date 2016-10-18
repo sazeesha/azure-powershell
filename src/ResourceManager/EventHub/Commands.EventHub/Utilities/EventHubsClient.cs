@@ -305,7 +305,15 @@ namespace Microsoft.Azure.Commands.Eventhub
 
         public void DeletConsumerGroup(string resourceGroupName, string namespaceName, string eventHubName, string consumerGroupName)
         {
-            Client.ConsumerGroups.Delete(resourceGroupName, namespaceName, eventHubName, consumerGroupName);
+            try
+            {
+                Client.ConsumerGroups.Delete(resourceGroupName, namespaceName, eventHubName, consumerGroupName);
+            }
+            catch (Exception ex)
+            {
+                string test = ex.Message;
+            }
+            
         }
 
 

@@ -42,7 +42,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
 
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
-            Position = 2,
+            Position = 3,
             HelpMessage = "ConsumerGroup Name.")]
         [ValidateNotNullOrEmpty]
         public string ConsumerGroupName { get; set; }

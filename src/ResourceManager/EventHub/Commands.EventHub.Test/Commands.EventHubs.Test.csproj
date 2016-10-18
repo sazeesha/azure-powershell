@@ -181,6 +181,11 @@
     <None Include="ScenarioTests\EventHubsTests.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="SessionRecords\Microsoft.Azure.Commands.EventHub.Test.ScenarioTests.ConsumerGroupsTests\TestConsumerGroupsCRUD.json" />
+    <None Include="SessionRecords\Microsoft.Azure.Commands.EventHub.Test.ScenarioTests.EventHubsNamespaceTests\TestEventHubsNamespaceAuthorizationRulesCRUD.json" />
+    <None Include="SessionRecords\Microsoft.Azure.Commands.EventHub.Test.ScenarioTests.EventHubsNamespaceTests\TestEventHubsNamespaceCRUD.json" />
+    <None Include="SessionRecords\Microsoft.Azure.Commands.EventHub.Test.ScenarioTests.EventHubsTests\TestEventHubsAuthorizationRulesCRUD.json" />
+    <None Include="SessionRecords\Microsoft.Azure.Commands.EventHub.Test.ScenarioTests.EventHubsTests\TestEventHubsCRUD.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Commands.Common.Authentication\Commands.Common.Authentication.csproj">
@@ -211,8 +216,6 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SessionRecords\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

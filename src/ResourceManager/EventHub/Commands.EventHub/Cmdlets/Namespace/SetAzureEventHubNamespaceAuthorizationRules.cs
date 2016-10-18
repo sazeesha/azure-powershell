@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         [Parameter(Mandatory = true,
             Position = 2,
             ParameterSetName = InputFileParameterSetName,
-            HelpMessage = "File name containing a single EventHub Namespace AuthorizationRule definition.")]
+            HelpMessage = "Name of file containing a single EventHub Namespace AuthorizationRule definition.")]
         [ValidateNotNullOrEmpty]
         public string InputFile { get; set; }
 
