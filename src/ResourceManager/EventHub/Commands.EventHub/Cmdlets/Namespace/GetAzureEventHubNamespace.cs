@@ -40,13 +40,13 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         {
             if (!string.IsNullOrEmpty(ResourceGroupName) && !string.IsNullOrEmpty(NamespaceName))
             {
-                // Get an EventHub namespace
+                // Get EventHub namespace
                 var attributes = Client.GetNamespace(ResourceGroupName, NamespaceName);
                 WriteObject(attributes);
             }
             else if (!string.IsNullOrEmpty(ResourceGroupName) && string.IsNullOrEmpty(NamespaceName))
             {
-                // List all EventHub namespaces in given resource group 
+                // List all EventHub namespace in given resource group 
                 var namespaceList = Client.ListNamespacesByResourceGroup(ResourceGroupName);
                 WriteObject(namespaceList.ToList(), true);
             }

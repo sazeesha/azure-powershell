@@ -45,14 +45,14 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
         [Parameter(Mandatory = true,
             ParameterSetName = InputFileParameterSetName,
             Position = 3,
-            HelpMessage = "File name containing a single EventHub definition.")]
+            HelpMessage = "Name of file containing a single EventHub definition.")]
         [ValidateNotNullOrEmpty]
         public string InputFile { get; set; }
 
         [Parameter(Mandatory = true,
             ParameterSetName = EventHubParameterSetName,
             Position = 3,
-            HelpMessage = "EventHub definition.")]
+            HelpMessage = "EventHub object.")]
         [ValidateNotNullOrEmpty]
         public EventHubAttributes EventHubObj { get; set; }
         

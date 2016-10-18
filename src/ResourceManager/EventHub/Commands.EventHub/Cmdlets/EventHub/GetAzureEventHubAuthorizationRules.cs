@@ -53,7 +53,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
         {
             if (!string.IsNullOrEmpty(AuthorizationRule))
             {
-                // Get a eventHub AuthorizationRules
+                // Get a eventHub AuthorizationRule
                 var authRule = Client.GetEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
                 WriteObject(authRule);
             }

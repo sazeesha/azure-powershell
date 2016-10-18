@@ -45,7 +45,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
         [Parameter(Mandatory = true,
             Position = 3,
             ParameterSetName = InputFileParameterSetName,
-            HelpMessage = "File name containing a single AuthorizationRule definition.")]
+            HelpMessage = "Name of file containing a single AuthorizationRule definition.")]
         [ValidateNotNullOrEmpty]
         public string InputFile { get; set; }
 

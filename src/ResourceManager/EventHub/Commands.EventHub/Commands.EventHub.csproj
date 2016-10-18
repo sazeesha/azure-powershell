@@ -214,7 +214,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Microsoft.Azure.Commands.Websites.dll-Help.xml">
+    <None Include="Microsoft.Azure.Commands.EventHub.dll-Help.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

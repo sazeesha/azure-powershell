@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         {
             if (!string.IsNullOrEmpty(AuthorizationRuleName))
             {
-                // Get a EventHub namespace AuthorizationRules
+                // Get a EventHub namespace AuthorizationRule
                 var authRule = Client.GetNamespaceAuthorizationRule(ResourceGroupName, NamespaceName, AuthorizationRuleName);
                 WriteObject(authRule);
             }

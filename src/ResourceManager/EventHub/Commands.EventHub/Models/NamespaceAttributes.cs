@@ -21,7 +21,7 @@ namespace Microsoft.Azure.Commands.EventHub.Models
 {
 
     /// <summary>
-    /// Represents the properties of a Namespace of type NotificationHub
+    /// Represents the properties of a Namespace of type EventHub
     /// </summary>
     public class NamespaceAttributes
     {

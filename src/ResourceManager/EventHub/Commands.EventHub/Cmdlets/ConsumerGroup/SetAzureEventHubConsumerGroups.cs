@@ -53,7 +53,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
         [Parameter(Mandatory = true,
             ParameterSetName = InputFileParameterSetName,
             Position = 4,
-            HelpMessage = "File containing a single ConsumerGroup definition.")]
+            HelpMessage = "Name of file containing a single ConsumerGroup definition.")]
         [ValidateNotNullOrEmpty]
         public string InputFile { get; set; }
 
