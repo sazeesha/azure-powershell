@@ -142,6 +142,8 @@ function EventHubsTests
     Write-Debug " Delete namespaces"
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
 
+	Write-Debug " Delete resourcegroup"
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 }
 
 <#
@@ -294,4 +296,7 @@ function EventHubsAuthTests
     
     Write-Debug "Delete NameSpace"
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
+
+	Write-Debug " Delete resourcegroup"
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 }

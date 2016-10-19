@@ -54,15 +54,15 @@ Tests EventHub Namespace Create List Remove operations.
 #>
 function ConsumerGroupsTests
 { # Setup    
-    $location = "West US"
+    $location = Get-Location
 	$resourceGroupName = Get-ResourceGroupName
 	$namespaceName = Get-NamespaceName
-	$eventHubName = "eventhub11"
+	$eventHubName = Get-EventHubName
 	$consumerGroupName = "consumergroup1"
     
     Write-Debug "  Create resource group"    
     Write-Debug " Resource Group Name : $resourceGroupName"
-    New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force    
+    $Result11 = New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
     
 	Write-Debug "  Create new Evnethub namespace"
     Write-Debug " Namespace name : $namespaceName"
@@ -118,4 +118,7 @@ function ConsumerGroupsTests
 
     Write-Debug " Delete namespaces"
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
+
+	Write-Debug " Delete resourcegroup"
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 }

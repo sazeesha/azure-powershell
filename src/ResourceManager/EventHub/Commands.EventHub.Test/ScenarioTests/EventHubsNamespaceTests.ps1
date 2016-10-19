@@ -18,8 +18,8 @@ Get ResourceGroup name
 #>
 function Get-ResourceGroupName
 {
-    #return "RGName-" + (getAssetName)
-	return "Default-ServiceBus-WestUS"
+    return "RGName-" + (getAssetName)
+	
 }
 
 <#
@@ -37,7 +37,7 @@ Get Namespace name
 #>
 function Get-NamespaceName
 {
-    return "pwr-Namespace-" + (getAssetName)
+    return "Eventhub-Namespace-" + (getAssetName)
 }
 
 <#
@@ -47,7 +47,7 @@ Tests EventHub Namespace Create List Remove operations.
 function EventHubsNamespaceTests 
 {
     # Setup    
-    $location = "West US"
+    $location = Get-Location
 	$namespaceName = Get-NamespaceName
 	$namespaceName2 = Get-NamespaceName
 	$secondResourceGroup = Get-ResourceGroupName
@@ -131,6 +131,8 @@ function EventHubsNamespaceTests
     Remove-AzureRmEventHubNamespace -ResourceGroup $secondResourceGroup -NamespaceName $namespaceName2
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
 
+	Write-Debug " Delete resourcegroup"
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 }
 
 <#
@@ -140,7 +142,7 @@ Tests EventHub Namespace AuthorizationRules Create List Remove operations.
 function EventHubsNamespaceAuthTests
 {
     # Setup    
-    $location = "West US"
+    $location = Get-Location
 	$resourceGroupName = Get-ResourceGroupName
 	$namespaceName = Get-NamespaceName
 	$authRuleName = "TestAuthRule"
@@ -275,5 +277,8 @@ function EventHubsNamespaceAuthTests
     
     Write-Debug " Delete namespaces"
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
+
+	Write-Debug " Delete resourcegroup"
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 	   
 }
