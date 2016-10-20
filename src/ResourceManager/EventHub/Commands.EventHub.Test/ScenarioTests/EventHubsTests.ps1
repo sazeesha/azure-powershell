@@ -18,7 +18,7 @@ Get valid resource group name
 #>
 function Get-ResourceGroupName
 {
-    return "RGName-" + (getAssetName)	
+    return "RGName-" + (getAssetName)		
 }
 
 <#
@@ -42,6 +42,17 @@ function Get-NamespaceName
 
 <#
 .SYNOPSIS
+Get valid AuthorizationRule name
+#>
+function Get-AuthorizationRuleName
+{
+    return "Eventhub-Namespace-AuthorizationRule" + (getAssetName)
+	
+}
+
+
+<#
+.SYNOPSIS
 Tests EventHubs Create List Remove operations.
 #>
 function EventHubsTests
@@ -51,6 +62,8 @@ function EventHubsTests
     $resourceGroupName = Get-ResourceGroupName
 	$namespaceName = Get-NamespaceName
 	$eventHubName = Get-EventHubName
+
+	update-NameInResourceFile "NewEventHub.json" $eventHubName	
 
 	# Create Resource Group
     Write-Debug "Create resource group"    
@@ -65,7 +78,7 @@ function EventHubsTests
     Wait-Seconds 15
 
 	# Assert
-	Assert-True {$result.Name -eq $namespaceName}
+	Assert-True {$result.ProvisioningState -eq "Succeeded"}
 	
 
 	# get the created Eventhub Namespace 
@@ -105,15 +118,11 @@ function EventHubsTests
     Write-Debug " Get all the created EventHub "
     $createdEventHubList = Get-AzureRmEventHub -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
 
+	# Assert
     $found = 0
     for ($i = 0; $i -lt $createdEventHubList.Count; $i++)
     {
-        if ($createdEventHubList[$i].Name -eq $eventHubName)
-        {
-            $found = $found + 1
-        }
-
-        if ($createdEventHubList[$i].Name -eq $eventHubName2)
+        if ($createdEventHubList[$i].Name -eq $createdEventHub)
         {
             $found = $found + 1
         }
@@ -157,7 +166,10 @@ function EventHubsAuthTests
 	$resourceGroupName = Get-ResourceGroupName
 	$namespaceName = Get-NamespaceName    
 	$eventHubName = Get-EventHubName	
-    $authRuleName = "TestAuthRule"
+    $authRuleName = Get-AuthorizationRuleName
+	update-NameInResourceFile "NewEventHub.json" $eventHubName	
+	update-NameInResourceFile "NewAuthorizationRule.json" $authRuleName	
+
 
 	# Create ResourceGroup
     Write-Debug " Create resource group"    
@@ -171,7 +183,7 @@ function EventHubsAuthTests
     Wait-Seconds 15
     
 	# Assert
-	Assert-True {$result.Name -eq $namespaceName}
+	Assert-True {$result.ProvisioningState -eq "Succeeded"}
 
 	# Get Created NameSpace
     Write-Debug " Get the created namespace within the resource group"

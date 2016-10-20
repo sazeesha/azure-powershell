@@ -116,8 +116,22 @@ function Get-SecondaryLocation
 
 <#
 .SYNOPSIS
-Cleans the website
+update the New Name in resource file
 #>
+function update-NameInResourceFile ($fileName, $newName )
+{
+ 
+ $fpath = '.\.\Resources\'
+$fileContent = Get-Content $fpath$fileName -raw | ConvertFrom-Json
+
+$fileContent.Name = $newName
+$fileContent.update 
+$fileContent | ConvertTo-Json  | set-content $fpath$fileName
+
+}
+
+
+
 function Clean-Website($resourceGroup, $websiteName)
 {
     if ([Microsoft.Azure.Test.HttpRecorder.HttpMockServer]::Mode -ne [Microsoft.Azure.Test.HttpRecorder.HttpRecorderMode]::Playback) 
@@ -125,6 +139,9 @@ function Clean-Website($resourceGroup, $websiteName)
 		$result = Remove-AzureRmWebsite -ResourceGroupName $resourceGroup.ToString() -WebsiteName $websiteName.ToString() -Force
     }
 }
+
+
+
 
 function PingWebApp($webApp)
 {

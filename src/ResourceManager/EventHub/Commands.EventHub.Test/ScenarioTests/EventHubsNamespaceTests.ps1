@@ -19,7 +19,6 @@ Get ResourceGroup name
 function Get-ResourceGroupName
 {
     return "RGName-" + (getAssetName)
-	
 }
 
 <#
@@ -42,6 +41,17 @@ function Get-NamespaceName
 
 <#
 .SYNOPSIS
+Get valid AuthorizationRule name
+#>
+function Get-AuthorizationRuleName
+{
+    return "Eventhub-Namespace-AuthorizationRule" + (getAssetName)
+	
+}
+
+
+<#
+.SYNOPSIS
 Tests EventHub Namespace Create List Remove operations.
 #>
 function EventHubsNamespaceTests 
@@ -59,6 +69,9 @@ function EventHubsNamespaceTests
     Write-Debug "NamespaceName : $namespaceName" 
     $result = New-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -Location $location -SkuName "Standard" -SkuCapacity "1" -CreateACSNamespace $FALSE
     Wait-Seconds 15
+	
+	# Assert 
+	Assert-True {$result.ProvisioningState -eq "Succeeded"}
 
     Write-Debug "Get the created namespace within the resource group"
     $createdNamespace = Get-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
@@ -145,7 +158,10 @@ function EventHubsNamespaceAuthTests
     $location = Get-Location
 	$resourceGroupName = Get-ResourceGroupName
 	$namespaceName = Get-NamespaceName
-	$authRuleName = "TestAuthRule"
+	$authRuleName = Get-AuthorizationRuleName
+	update-NameInResourceFile "NewAuthorizationRule.json" $authRuleName
+	update-NameInResourceFile "SetAuthorizationRule.json" $authRuleName
+	
     
     Write-Debug " Create resource group"    
     Write-Debug "ResourceGroup name : $resourceGroupName"
