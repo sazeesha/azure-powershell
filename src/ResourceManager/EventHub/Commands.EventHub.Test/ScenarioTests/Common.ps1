@@ -12,32 +12,6 @@
 # limitations under the License.
 # ----------------------------------------------------------------------------------
 
-<#
-.SYNOPSIS
-Gets a website name for testing.
-#>
-function Get-WebsiteName
-{
-    return getAssetName
-}
-
-<#
-.SYNOPSIS
-Gets a website name for testing.
-#>
-function Get-TrafficManagerProfileName
-{
-    return getAssetName
-}
-
-<#
-.SYNOPSIS
-Gets a website name for testing.
-#>
-function Get-WebHostPlanName
-{
-    return getAssetName 
-}
 
 <#
 .SYNOPSIS
@@ -48,23 +22,6 @@ function Get-ResourceGroupName
     return getAssetName
 }
 
-<#
-.SYNOPSIS
-Gets a backup name for testing.
-#>
-function Get-BackupName
-{
-    return getAssetName
-}
-
-<#
-.SYNOPSIS
-Gets an aseName for testing.
-#>
-function Get-AseName
-{
-    return getAssetName
-}
 
 <#
 .SYNOPSIS
@@ -116,48 +73,16 @@ function Get-SecondaryLocation
 
 <#
 .SYNOPSIS
-Cleans the website
+update the New Name in resource file
 #>
-function Clean-Website($resourceGroup, $websiteName)
+function update-NameInResourceFile ($fileName, $newName )
 {
-    if ([Microsoft.Azure.Test.HttpRecorder.HttpMockServer]::Mode -ne [Microsoft.Azure.Test.HttpRecorder.HttpRecorderMode]::Playback) 
-	{
-		$result = Remove-AzureRmWebsite -ResourceGroupName $resourceGroup.ToString() -WebsiteName $websiteName.ToString() -Force
-    }
-}
+ 
+ $fpath = '.\.\Resources\'
+$fileContent = Get-Content $fpath$fileName -raw | ConvertFrom-Json
 
-function PingWebApp($webApp)
-{
-	if ([Microsoft.Azure.Test.HttpRecorder.HttpMockServer]::Mode -ne [Microsoft.Azure.Test.HttpRecorder.HttpRecorderMode]::Playback) 
-	{
-		try 
-		{
-			$result = Invoke-WebRequest $webApp.HostNames[0] 
-			$statusCode = $result.StatusCode
-		} 
-		catch [System.Net.WebException ] 
-		{ 
-			$statusCode = $_.Exception.Response.StatusCode
-		}
+$fileContent.Name = $newName
+$fileContent.update 
+$fileContent | ConvertTo-Json  | set-content $fpath$fileName
 
-		return $statusCode
-    }
-}
-
-# Create a SAS Uri
-function Get-SasUri
-{
-    param ([string] $storageAccount, [string] $storageKey, [string] $container, [TimeSpan] $duration, [Microsoft.WindowsAzure.Storage.Blob.SharedAccessBlobPermissions] $type)
-
-	$uri = "https://$storageAccount.blob.core.windows.net/$container"
-
-	$destUri = New-Object -TypeName System.Uri($uri);
-	$cred = New-Object -TypeName Microsoft.WindowsAzure.Storage.Auth.StorageCredentials($storageAccount, $storageKey);
-	$destBlob = New-Object -TypeName Microsoft.WindowsAzure.Storage.Blob.CloudPageBlob($destUri, $cred);
-	$policy = New-Object Microsoft.WindowsAzure.Storage.Blob.SharedAccessBlobPolicy;
-	$policy.Permissions = $type;
-	$policy.SharedAccessExpiryTime = (Get-Date).Add($duration);
-	$uri += $destBlob.GetSharedAccessSignature($policy);
-
-	return $uri;
 }

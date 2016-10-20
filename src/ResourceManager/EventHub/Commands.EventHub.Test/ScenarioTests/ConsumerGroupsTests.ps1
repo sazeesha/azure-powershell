@@ -18,7 +18,7 @@ Get valid resource group name
 #>
 function Get-ResourceGroupName
 {
-    return "RGName-" + (getAssetName)	
+    return "RGName-" + (getAssetName)
 }
 
 <#
@@ -53,17 +53,25 @@ function Get-NamespaceName
 Tests EventHub Namespace Create List Remove operations.
 #>
 function ConsumerGroupsTests
-{ # Setup    
+{ # Setup
+
+
     $location = Get-Location
 	$resourceGroupName = Get-ResourceGroupName
 	$namespaceName = Get-NamespaceName
 	$eventHubName = Get-EventHubName
-	$consumerGroupName = "consumergroup1"
+	$consumerGroupName = Get-ConsumerGroupName
+
+	update-NameInResourceFile "NewEventHub.json" $eventHubName
+	update-NameInResourceFile "NewConsumerGroup.json" $eventHubName
+
+
     
     Write-Debug "  Create resource group"    
     Write-Debug " Resource Group Name : $resourceGroupName"
     $Result11 = New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
     
+	Write-Debug $Result11
 	Write-Debug "  Create new Evnethub namespace"
     Write-Debug " Namespace name : $namespaceName"
     $result = New-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -Location $location
