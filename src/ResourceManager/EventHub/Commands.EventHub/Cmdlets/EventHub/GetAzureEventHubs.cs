@@ -47,13 +47,13 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
             if (!string.IsNullOrEmpty(EventHubName))
             {
                 // Get a EventHub
-                var eventHub = Client.GetEventHub(ResourceGroupName, NamespaceName, EventHubName);
+                EventHubAttributes eventHub = Client.GetEventHub(ResourceGroupName, NamespaceName, EventHubName);
                 WriteObject(eventHub);
             }
             else
             {
                 // Get all EventHubs
-                var eventHubsList = Client.ListAllEventHubs(ResourceGroupName, NamespaceName);
+                IEnumerable<EventHubAttributes> eventHubsList = Client.ListAllEventHubs(ResourceGroupName, NamespaceName);
                 WriteObject(eventHubsList.ToList(), true);
             }
         }

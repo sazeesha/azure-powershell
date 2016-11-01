@@ -41,19 +41,19 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
             if (!string.IsNullOrEmpty(ResourceGroupName) && !string.IsNullOrEmpty(NamespaceName))
             {
                 // Get EventHub namespace
-                var attributes = Client.GetNamespace(ResourceGroupName, NamespaceName);
+                NamespaceAttributes attributes = Client.GetNamespace(ResourceGroupName, NamespaceName);
                 WriteObject(attributes);
             }
             else if (!string.IsNullOrEmpty(ResourceGroupName) && string.IsNullOrEmpty(NamespaceName))
             {
                 // List all EventHub namespace in given resource group 
-                var namespaceList = Client.ListNamespacesByResourceGroup(ResourceGroupName);
+                IEnumerable< NamespaceAttributes> namespaceList = Client.ListNamespacesByResourceGroup(ResourceGroupName);
                 WriteObject(namespaceList.ToList(), true);
             }
             else
             {
                 // List all EventHub namespaces in the given subscription
-                var namespaceList = Client.ListNamespacesBySubscription();
+                IEnumerable<NamespaceAttributes> namespaceList = Client.ListNamespacesBySubscription();
                 WriteObject(namespaceList.ToList(), true);
             }
         }

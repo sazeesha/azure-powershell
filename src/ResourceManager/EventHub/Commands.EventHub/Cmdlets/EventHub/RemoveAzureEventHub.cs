@@ -16,7 +16,7 @@ using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
 
-    [Cmdlet(VerbsCommon.Remove, EventHubVerb)]
+    [Cmdlet(VerbsCommon.Remove, EventHubVerb, SupportsShouldProcess = true)]
     public class RemoveAzureEventHub : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
@@ -43,7 +43,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
         public override void ExecuteCmdlet()
         {
             // delete a EventHub 
-            var deleteHub = Client.DeleteEventHub(ResourceGroupName, NamespaceName, EventHubName);
+            bool deleteHub = Client.DeleteEventHub(ResourceGroupName, NamespaceName, EventHubName);
             WriteObject(deleteHub);
         }
     }

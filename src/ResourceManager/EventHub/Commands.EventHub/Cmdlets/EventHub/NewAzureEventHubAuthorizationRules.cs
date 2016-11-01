@@ -18,8 +18,8 @@ using Microsoft.Azure.Commands.EventHub.Models;
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
 
-    [Cmdlet(VerbsCommon.New, EventHubAuthorizationRulesVerb), OutputType(typeof(SharedAccessAuthorizationRuleAttributes))]
-    public class NewAzureEventHubAuthorizationRules : AzureEventHubsCmdletBase
+    [Cmdlet(VerbsCommon.New, EventHubAuthorizationRuleVerb, SupportsShouldProcess = true), OutputType(typeof(SharedAccessAuthorizationRuleAttributes))]
+    public class NewAzureEventHubAuthorizationRule : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -69,7 +69,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
             }
 
             // Create a new eventHub authorizationRule
-            var authRule = Client.CreateOrUpdateEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName,
+            SharedAccessAuthorizationRuleAttributes authRule = Client.CreateOrUpdateEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName,
                                                     sasRule.Name, sasRule);
             WriteObject(authRule);
         }

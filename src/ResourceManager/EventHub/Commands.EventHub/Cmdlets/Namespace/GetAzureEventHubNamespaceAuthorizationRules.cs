@@ -20,8 +20,8 @@ using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
 
-    [Cmdlet(VerbsCommon.Get, EventHubNamespaceAuthorizationRulesVerb), OutputType(typeof(List<SharedAccessAuthorizationRuleAttributes>))]
-    public class GetAzureEventHubNamespaceAuthorizationRules : AzureEventHubsCmdletBase
+    [Cmdlet(VerbsCommon.Get, EventHubNamespaceAuthorizationRuleVerb), OutputType(typeof(List<SharedAccessAuthorizationRuleAttributes>))]
+    public class GetAzureEventHubNamespaceAuthorizationRule : AzureEventHubsCmdletBase
     {
         [Parameter(
             Mandatory = true,
@@ -50,13 +50,13 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
             if (!string.IsNullOrEmpty(AuthorizationRuleName))
             {
                 // Get a EventHub namespace AuthorizationRule
-                var authRule = Client.GetNamespaceAuthorizationRule(ResourceGroupName, NamespaceName, AuthorizationRuleName);
+                SharedAccessAuthorizationRuleAttributes authRule = Client.GetNamespaceAuthorizationRule(ResourceGroupName, NamespaceName, AuthorizationRuleName);
                 WriteObject(authRule);
             }
             else
             {
                 // Get all EventHub namespace AuthorizationRules
-                var authRuleList = Client.ListNamespaceAuthorizationRules(ResourceGroupName, NamespaceName);
+                IEnumerable<SharedAccessAuthorizationRuleAttributes> authRuleList = Client.ListNamespaceAuthorizationRules(ResourceGroupName, NamespaceName);
                 WriteObject(authRuleList.ToList(), true);
             }
         }

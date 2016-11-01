@@ -54,14 +54,14 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
             if (!string.IsNullOrEmpty(ConsumerGroupName))
             {
                 // Get a ConsumnerGroup
-                var consumerGroup = Client.GetConsumerGroup(ResourceGroupName, NamespaceName, EventHubName, ConsumerGroupName);
-                WriteObject(consumerGroup);
+                ConsumerGroupAttributes consumergrpAttributes = Client.GetConsumerGroup(ResourceGroupName, NamespaceName, EventHubName, ConsumerGroupName);
+                WriteObject(consumergrpAttributes);
             }
             else
             {
                 // Get all ConsumnerGroups
-                var consumerGropusList = Client.ListAllConsumerGroup(ResourceGroupName, NamespaceName, EventHubName);
-                WriteObject(consumerGropusList.ToList(), true);
+                IEnumerable<ConsumerGroupAttributes> consumergrpAttributesList = Client.ListAllConsumerGroup(ResourceGroupName, NamespaceName, EventHubName);
+                WriteObject(consumergrpAttributesList.ToList(), true);
             }
         }
     }

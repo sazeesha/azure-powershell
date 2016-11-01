@@ -184,10 +184,10 @@ namespace Microsoft.Azure.Commands.Eventhub
         #endregion
 
         #region EventHub
-        public EventHubResource GetEventHub(string resourceGroupName, string namespaceName, string eventHubName)
+        public EventHubAttributes GetEventHub(string resourceGroupName, string namespaceName, string eventHubName)
         {
             var response = Client.EventHubs.Get(resourceGroupName, namespaceName, eventHubName);
-            return response;
+            return new EventHubAttributes(response);
         }
 
         public IEnumerable<EventHubAttributes> ListAllEventHubs(string resourceGroupName, string namespaceName)

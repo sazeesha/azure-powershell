@@ -12,13 +12,15 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 using Microsoft.Azure.Commands.EventHub.Models;
+using Microsoft.Azure.Commands.ResourceManager.Common.Tags;
 using System.Collections;
+using System.Collections.Generic;
 using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
 
-    [Cmdlet(VerbsCommon.Set, EventHubNamespaceVerb), OutputType(typeof(NamespaceAttributes))]
+    [Cmdlet(VerbsCommon.Set, EventHubNamespaceVerb, SupportsShouldProcess = true), OutputType(typeof(NamespaceAttributes))]
     public class SetAzureEventHubNamespace : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
@@ -70,12 +72,13 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
             ValueFromPipelineByPropertyName = true,
             Position = 6,
             HelpMessage = "Hashtables which represents resource Tags.")]
-        public Hashtable Tags { get; set; }
+        public Hashtable Tag { get; set; }
 
         public override void ExecuteCmdlet()
         {
             // Update a EventHub namespace 
-            var nsAttribute = Client.UpdateNamespace(ResourceGroupName, NamespaceName, Location, SkuName, SkuCapacity, State, ConvertTagsToDictionary(Tags));
+            Dictionary<string, string> tagDictionary = TagsConversionHelper.CreateTagDictionary(Tag, validate: true);
+            NamespaceAttributes nsAttribute = Client.UpdateNamespace(ResourceGroupName, NamespaceName, Location, SkuName, SkuCapacity, State, tagDictionary);
             WriteObject(nsAttribute);
         }
     }

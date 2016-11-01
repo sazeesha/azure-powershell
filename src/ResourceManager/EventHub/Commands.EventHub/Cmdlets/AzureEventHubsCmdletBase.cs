@@ -13,9 +13,10 @@
 // ----------------------------------------------------------------------------------
 
 using Microsoft.Azure.Commands.Eventhub;
-using Microsoft.Azure.Commands.EventHub.Models;
+using Microsoft.Azure.Commands.EventHub;
 using Microsoft.Azure.Management.EventHub.Models;
 using Microsoft.Azure.Commands.ResourceManager.Common;
+using Microsoft.Azure.Commands.ResourceManager.Common.Tags;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 using Newtonsoft.Json;
 using System;
@@ -25,7 +26,7 @@ using System.Globalization;
 using System.IO;
 using System.Management.Automation;
 using System.Threading;
-using Microsoft.Azure.Commands.EventHub;
+
 
 namespace Microsoft.Azure.Commands.EventHub.Commands
 {
@@ -36,17 +37,15 @@ namespace Microsoft.Azure.Commands.EventHub.Commands
         public const string SASRuleParameterSetName = "SASRuleParameterSet";
         public const string EventHubParameterSetName = "EventHubParameterSet";
         public const string ConsumerGroupParameterSetName = "ConsumerGroupParameterSet";
-        public const string RegenerateKeysSetName = "RegenerateKeysSet";
+        public const string RegenerateKeySetName = "RegenerateKeySet";
                                                         
         protected const string EventHubNamespaceVerb = "AzureRmEventHubNamespace";
-        protected const string EventHubNamespaceAuthorizationRulesVerb = "AzureRmEventHubNamespaceAuthorizationRules";
-        protected const string EventHubNamespaceKeysVerb = "AzureRmEventHubNamespaceKeys";
-        protected const string EventHubNamespaceRegenerateKeysVerb = "AzureRmEventHubNameSpaceRegenerateKeys";
+        protected const string EventHubNamespaceAuthorizationRuleVerb = "AzureRmEventHubNamespaceAuthorizationRule";
+        protected const string EventHubNamespaceKeyVerb = "AzureRmEventHubNamespaceKey";
 
         protected const string EventHubVerb = "AzureRmEventHub";
-        protected const string EventHubAuthorizationRulesVerb = "AzureRmEventHubAuthorizationRules";
-        protected const string EventHubKeysVerb = "AzureRmEventHubKeys";
-        protected const string EventHubRegenerateKeysVerb = "AzureRmEventHubRegenerateKeys";
+        protected const string EventHubAuthorizationRuleVerb = "AzureRmEventHubAuthorizationRule";
+        protected const string EventHubKeyVerb = "AzureRmEventHubKey";
        
         protected const string ConsumerGroupVerb = "AzureRmEventHubConsumerGroup";
 
@@ -102,7 +101,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands
                 string fileName = this.TryResolvePath(InputFile);
                 if (!(new FileInfo(fileName)).Exists)
                 {
-                    throw new PSArgumentException(string.Format(CultureInfo.InvariantCulture, Resources.FileDoesNotExist, fileName));
+                    throw new PSArgumentException(string.Format(CultureInfo.InvariantCulture,Properties.Resources.FileDoesNotExist, fileName));
                 }
 
                 try
@@ -121,6 +120,10 @@ namespace Microsoft.Azure.Commands.EventHub.Commands
         }
 
         #region TagsHelper
+
+       
+        
+
 
         public Dictionary<string, string> ConvertTagsToDictionary(Hashtable tags)
         {

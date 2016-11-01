@@ -19,8 +19,8 @@ using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
 
-    [Cmdlet(VerbsCommon.New, EventHubNamespaceAuthorizationRulesVerb), OutputType(typeof(SharedAccessAuthorizationRuleAttributes))]
-    public class NewAzureEventHubNamespaceAuthorizationRules : AzureEventHubsCmdletBase
+    [Cmdlet(VerbsCommon.New, EventHubNamespaceAuthorizationRuleVerb, SupportsShouldProcess = true), OutputType(typeof(SharedAccessAuthorizationRuleAttributes))]
+    public class NewAzureEventHubNamespaceAuthorizationRule : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -63,7 +63,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
             }
 
             // Create a new EventHub namespace authorizationRule
-            var authRule = Client.CreateOrUpdateNamespaceAuthorizationRules(ResourceGroupName, NamespaceName, sasRule.Name, sasRule);
+            SharedAccessAuthorizationRuleAttributes authRule = Client.CreateOrUpdateNamespaceAuthorizationRules(ResourceGroupName, NamespaceName, sasRule.Name, sasRule);
             WriteObject(authRule);
         }
     }

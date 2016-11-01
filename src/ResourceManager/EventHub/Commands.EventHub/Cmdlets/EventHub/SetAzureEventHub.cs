@@ -18,7 +18,7 @@ using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
 
-    [Cmdlet(VerbsCommon.Set, EventHubVerb), OutputType(typeof(EventHubAttributes))]
+    [Cmdlet(VerbsCommon.Set, EventHubVerb, SupportsShouldProcess = true), OutputType(typeof(EventHubAttributes))]
     public class SetAzureEventHub : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
@@ -69,8 +69,8 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
                 eventHub = EventHubObj;
             }
 
-            var hubAttributes = Client.CreateOrUpdateEventHub(ResourceGroupName, NamespaceName, eventHub.Name, eventHub);
-            WriteObject(hubAttributes);
+            EventHubAttributes eventhubAttributes = Client.CreateOrUpdateEventHub(ResourceGroupName, NamespaceName, eventHub.Name, eventHub);
+            WriteObject(eventhubAttributes);
         }
     }
 }

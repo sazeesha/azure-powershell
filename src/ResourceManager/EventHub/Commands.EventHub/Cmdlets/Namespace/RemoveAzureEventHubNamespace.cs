@@ -17,7 +17,7 @@ using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
 
-    [Cmdlet(VerbsCommon.Remove, EventHubNamespaceVerb)]
+    [Cmdlet(VerbsCommon.Remove, EventHubNamespaceVerb, SupportsShouldProcess = true)]
     public class RemoveAzureEventHubNamespace : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,

@@ -17,8 +17,8 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-    [Cmdlet(VerbsCommon.Set, EventHubRegenerateKeysVerb), OutputType(typeof(ResourceListKeys))]
-    public class SetAzureEventHubRegenerateKeys : AzureEventHubsCmdletBase
+    [Cmdlet(VerbsCommon.New, EventHubKeyVerb, SupportsShouldProcess = true), OutputType(typeof(ResourceListKeys))]
+    public class NewAzureEventHubKey : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -50,20 +50,20 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 
         [Parameter(Mandatory = true,
             Position = 4,
-            ParameterSetName = RegenerateKeysSetName,
+            ParameterSetName = RegenerateKeySetName,
             HelpMessage = "Regenerate Keys - 'PrimaryKey'/'SecondaryKey'.")]
         [ValidateSet(RegeneKeys.PrimaryKey,
             RegeneKeys.SecondaryKey,
             IgnoreCase = true)]
         [ValidateNotNullOrEmpty]        
-        public string RegenerateKeys { get; set; }
+        public string RegenerateKey { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            var regenKey = new RegenerateKeysParameters(ParsePolicyKey(RegenerateKeys));
+            var regenKey = new RegenerateKeysParameters(ParsePolicyKey(RegenerateKey));
 
             // Get a EventHub List Keys for the specified AuthorizationRule
-            var keys = Client.SetRegenerateKeys(ResourceGroup, NamespaceName, EventHubName, AuthorizationRule, regenKey);
+            ResourceListKeys keys = Client.SetRegenerateKeys(ResourceGroup, NamespaceName, EventHubName, AuthorizationRule, regenKey);
             WriteObject(keys);
         }
     }

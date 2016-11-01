@@ -19,8 +19,8 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {    
-    [Cmdlet(VerbsCommon.Get, EventHubAuthorizationRulesVerb), OutputType(typeof(List<SharedAccessAuthorizationRuleAttributes>))]
-    public class GetAzureEventHubAuthorizationRules : AzureEventHubsCmdletBase
+    [Cmdlet(VerbsCommon.Get, EventHubAuthorizationRuleVerb), OutputType(typeof(List<SharedAccessAuthorizationRuleAttributes>))]
+    public class GetAzureEventHubAuthorizationRule : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -54,13 +54,13 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
             if (!string.IsNullOrEmpty(AuthorizationRule))
             {
                 // Get a eventHub AuthorizationRule
-                var authRule = Client.GetEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
+                SharedAccessAuthorizationRuleAttributes authRule = Client.GetEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
                 WriteObject(authRule);
             }
             else
             {
                 // Get all eventHub AuthorizationRules
-                var authRuleList = Client.ListEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName);
+                IEnumerable< SharedAccessAuthorizationRuleAttributes> authRuleList = Client.ListEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName);
                 WriteObject(authRuleList.ToList(), true);
             }
         }

@@ -18,7 +18,7 @@ using Microsoft.Azure.Commands.EventHub.Models;
 namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
 {
 
-    [Cmdlet(VerbsCommon.New, ConsumerGroupVerb), OutputType(typeof(EventHubAttributes))]
+    [Cmdlet(VerbsCommon.New, ConsumerGroupVerb, SupportsShouldProcess = true), OutputType(typeof(ConsumerGroupAttributes))]
     public class NewEventHubConsumerGroup : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
@@ -75,8 +75,8 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
                 consumerGroup = ConsumerGroupObj;
             }
 
-            var hubAttributes = Client.CreateOrUpdateConsumerGroup(ResourceGroupName, NamespaceName, EventHubName, consumerGroup.Name, consumerGroup);
-            WriteObject(hubAttributes);
+            ConsumerGroupAttributes consumergrpAttributes = Client.CreateOrUpdateConsumerGroup(ResourceGroupName, NamespaceName, EventHubName, consumerGroup.Name, consumerGroup);
+            WriteObject(consumergrpAttributes);
         }
     }
 }

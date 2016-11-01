@@ -13,13 +13,15 @@
 // ----------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.EventHub.Models;
+using Microsoft.Azure.Commands.EventHub.Models;
 using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-    [Cmdlet(VerbsCommon.Set, EventHubNamespaceRegenerateKeysVerb), OutputType(typeof(ResourceListKeys))]
-    public class SetAzureRmNameSpaceRegenerateKeys : AzureEventHubsCmdletBase
+    [Cmdlet(VerbsCommon.New, EventHubNamespaceKeyVerb, SupportsShouldProcess = true), OutputType(typeof(ResourceListKeys))]
+    public class NewAzureRmNameSpaceKey : AzureEventHubsCmdletBase
     {
+        
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
             Position = 0,
@@ -43,7 +45,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 
         [Parameter(Mandatory = true,
             Position = 3,
-            ParameterSetName = RegenerateKeysSetName,
+            ParameterSetName = RegenerateKeySetName,
             HelpMessage = "Regenerate Keys - 'PrimaryKey'/'SecondaryKey'.")]
         [ValidateSet(RegeneKeys.PrimaryKey,
             RegeneKeys.SecondaryKey,
@@ -56,7 +58,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
             var regenKey = new RegenerateKeysParameters(ParsePolicyKey(RegenerateKeys));
 
             // Get a EventHub List Keys for the specified AuthorizationRule
-            var keys = Client.SetRegenerateKeys(ResourceGroup, NamespaceName, AuthorizationRule, regenKey);
+            ResourceListKeys keys = Client.SetRegenerateKeys(ResourceGroup, NamespaceName, AuthorizationRule, regenKey);
             WriteObject(keys);
         }
     }

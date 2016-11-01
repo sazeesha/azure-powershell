@@ -18,13 +18,29 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Microsoft.Azure.Commands.EventHub.Models
-{
+{    /// <summary>
+    /// 
+    /// </summary>
     public class SharedAccessAuthorizationRuleAttributes
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public const string DefaultClaimType = "SharedAccessKey";
+        /// <summary>
+        /// 
+        /// </summary>
         public const string DefaultClaimValue = "None";
+
+        /// <summary>
+        /// 
+        /// </summary>
         internal const string DefaultNamespaceAuthorizationRule = "RootManageSharedAccessKey";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="authRuleResource"></param>
         public SharedAccessAuthorizationRuleAttributes(SharedAccessAuthorizationRuleResource authRuleResource)
         {
             if (authRuleResource != null)

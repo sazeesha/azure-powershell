@@ -16,7 +16,7 @@ using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
 {
 
-    [Cmdlet(VerbsCommon.Remove, ConsumerGroupVerb)]
+    [Cmdlet(VerbsCommon.Remove, ConsumerGroupVerb, SupportsShouldProcess = true)]
     public class RemoveAzureRmEventHubConsumerGroupp : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,

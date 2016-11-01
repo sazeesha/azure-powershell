@@ -13,15 +13,22 @@
 // ----------------------------------------------------------------------------------
 
 using Microsoft.Azure.Commands.EventHub.Models;
+using Microsoft.Azure.Commands.ResourceManager.Common.Tags;
 using System.Collections;
+using System.Collections.Generic;
 using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-
-    [Cmdlet(VerbsCommon.New, EventHubNamespaceVerb), OutputType(typeof(NamespaceAttributes))]
+    /// <summary>
+    /// this commandlet will let you Create Eventhub namespace.
+    /// </summary>
+    [Cmdlet(VerbsCommon.New, EventHubNamespaceVerb, SupportsShouldProcess = true), OutputType(typeof(NamespaceAttributes))]
     public class NewAzureEventHubNamespace : AzureEventHubsCmdletBase
     {
+        /// <summary>
+        /// Name of the resource group.
+        /// </summary>
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -30,6 +37,9 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         [ValidateNotNullOrEmpty]
          public string ResourceGroupName { get; set; }
 
+        /// <summary>
+        /// EventHub Namespace Name.
+        /// </summary>
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -38,6 +48,9 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         [ValidateNotNullOrEmpty]
         public string NamespaceName { get; set; }
 
+        /// <summary>
+        /// EventHub Namespace Location.
+        /// </summary>
         [Parameter(
             Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -46,6 +59,9 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         [ValidateNotNullOrEmpty]
         public string Location { get; set; }
 
+        /// <summary>
+        /// Namespace Sku Name.
+        /// </summary>
         [Parameter(
           Position = 3,
           Mandatory = false,
@@ -57,6 +73,10 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
           IgnoreCase = true)]
         public string SkuName { get; set; }
 
+
+        /// <summary>
+        /// The eventhub throughput units.
+        /// </summary>
         [Parameter(
           Position = 4,
           Mandatory = false,
@@ -64,6 +84,9 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
           HelpMessage = "The eventhub throughput units.")]
         public int? SkuCapacity { get; set; }
 
+        /// <summary>
+        /// Indicates whether to create ACS namespace.
+        /// </summary>
         [Parameter(
           Position = 5,
           Mandatory = false,
@@ -71,17 +94,24 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
           HelpMessage = "Indicates whether to create ACS namespace.")]
         public bool? CreateACSNamespace { get; set; }
 
+        /// <summary>
+        /// Hashtables which represents resource Tags.
+        /// </summary>
         [Parameter(
             Mandatory = false,
             ValueFromPipelineByPropertyName = true,
             Position = 6,
             HelpMessage = "Hashtables which represents resource Tags.")]
-        public Hashtable Tags { get; set; }
+        public Hashtable Tag { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public override void ExecuteCmdlet()
         {
             // Create a new EventHub namespaces
-            var nsAttribute = Client.BeginCreateNamespace(ResourceGroupName, NamespaceName, Location, SkuName, SkuCapacity, CreateACSNamespace, ConvertTagsToDictionary(Tags));
+            Dictionary<string, string> tagDictionary = TagsConversionHelper.CreateTagDictionary(Tag, validate: true);
+            NamespaceAttributes nsAttribute = Client.BeginCreateNamespace(ResourceGroupName, NamespaceName, Location, SkuName, SkuCapacity, CreateACSNamespace, tagDictionary);
             WriteObject(nsAttribute);
         }
     }

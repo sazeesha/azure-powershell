@@ -18,7 +18,7 @@ using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
 
-    [Cmdlet(VerbsCommon.Get, EventHubNamespaceKeysVerb), OutputType(typeof(ResourceListKeys))]
+    [Cmdlet(VerbsCommon.Get, EventHubNamespaceKeyVerb), OutputType(typeof(ResourceListKeys))]
     public class GetAzureEventHubNamespaceListKeys : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
@@ -45,7 +45,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         public override void ExecuteCmdlet()
         {
             // Get a EventHub namespace List Keys for the specified AuthorizationRule
-            var keys = Client.GetNamespaceListKeys(ResourceGroupName, NamespaceName, AuthorizationRule);
+            ResourceListKeys keys = Client.GetNamespaceListKeys(ResourceGroupName, NamespaceName, AuthorizationRule);
             WriteObject(keys);
         }
     }

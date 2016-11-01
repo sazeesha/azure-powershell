@@ -17,7 +17,7 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
-    [Cmdlet(VerbsCommon.Get, EventHubKeysVerb), OutputType(typeof(ResourceListKeys))]
+    [Cmdlet(VerbsCommon.Get, EventHubKeyVerb), OutputType(typeof(ResourceListKeys))]
     public class GetAzureEventHubListKeys : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
         public override void ExecuteCmdlet()
         {
             // Get a EventHub List Keys for the specified AuthorizationRule
-            var keys = Client.GetEventHubListKeys(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
+            ResourceListKeys keys = Client.GetEventHubListKeys(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
             WriteObject(keys);
         }
     }

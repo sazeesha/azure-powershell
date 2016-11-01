@@ -17,8 +17,8 @@ using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
 
-    [Cmdlet(VerbsCommon.Remove, EventHubAuthorizationRulesVerb)]
-    public class RemoveAzureEventHubAuthorizationRules : AzureEventHubsCmdletBase
+    [Cmdlet(VerbsCommon.Remove, EventHubAuthorizationRuleVerb, SupportsShouldProcess = true), OutputType(typeof(bool))]
+    public class RemoveAzureEventHubAuthorizationRule : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
         public override void ExecuteCmdlet()
         {
             // Delete EventHub authorizationRule
-            var deleteAuthRule = Client.DeleteEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
+            bool deleteAuthRule = Client.DeleteEventHubAuthorizationRules(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
             WriteObject(deleteAuthRule);
         }
     }
