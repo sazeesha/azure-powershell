@@ -15,7 +15,9 @@
 using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
-
+    /// <summary>
+    /// 'Remove-AzureRmEventHub' Cmdlet removes the specified EventHub
+    /// </summary>
     [Cmdlet(VerbsCommon.Remove, EventHubVerb, SupportsShouldProcess = true)]
     public class RemoveAzureEventHub : AzureEventHubsCmdletBase
     {

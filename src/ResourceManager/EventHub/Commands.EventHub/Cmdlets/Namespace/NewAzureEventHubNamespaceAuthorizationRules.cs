@@ -18,7 +18,9 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-
+    /// <summary>
+    /// 'New-AzureRmEventHubNamespaceAuthorizationRule' Cmdlet creates a new Eventhub Namespace AuthorizationRule
+    /// </summary>
     [Cmdlet(VerbsCommon.New, EventHubNamespaceAuthorizationRuleVerb, SupportsShouldProcess = true), OutputType(typeof(SharedAccessAuthorizationRuleAttributes))]
     public class NewAzureEventHubNamespaceAuthorizationRule : AzureEventHubsCmdletBase
     {

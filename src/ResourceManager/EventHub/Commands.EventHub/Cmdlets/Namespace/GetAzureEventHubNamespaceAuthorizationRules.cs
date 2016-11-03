@@ -19,7 +19,11 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-
+    /// <summary>
+    /// 'Remove-AzureRmEventHubNamespaceAuthorizationRule' Cmdlet gives the details of a / List of Eventhub Namespace AuthorizationRule(s)
+    /// <para> If AuthorizationRule name provided, a single AuthorizationRule detials will be returned</para>
+    /// <para> If AuthorizationRule name not provided, list of AuthorizationRules will be returned</para>
+    /// </summary>
     [Cmdlet(VerbsCommon.Get, EventHubNamespaceAuthorizationRuleVerb), OutputType(typeof(List<SharedAccessAuthorizationRuleAttributes>))]
     public class GetAzureEventHubNamespaceAuthorizationRule : AzureEventHubsCmdletBase
     {

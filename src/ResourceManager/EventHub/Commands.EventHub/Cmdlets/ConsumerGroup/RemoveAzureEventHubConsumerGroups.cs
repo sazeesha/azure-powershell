@@ -15,7 +15,9 @@
 using System.Management.Automation;
 namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
 {
-
+    /// <summary>
+    /// 'Remove-AzureRmEventHubConsumerGroup' deletes the specifed Consumer Group
+    /// </summary>
     [Cmdlet(VerbsCommon.Remove, ConsumerGroupVerb, SupportsShouldProcess = true)]
     public class RemoveAzureRmEventHubConsumerGroupp : AzureEventHubsCmdletBase
     {

@@ -19,8 +19,13 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
+    /// <summary>
+    /// 'Get-AzureRmEventHubNamespace' Cmdlet gives the details of a / List of Eventhub Namespace(s)
+    /// <para> If Namespace name provided, a single Namespace detials will be returned</para>
+    /// <para> If Namespace name not provided, list of Namespace will be returned</para>
+    /// </summary>
     [Cmdlet(VerbsCommon.Get, EventHubNamespaceVerb), OutputType(typeof(List<NamespaceAttributes>))]
-    public class GetAzureEventHubNamespace : AzureEventHubsCmdletBase
+    public class GetAzureRmEventHubNamespace : AzureEventHubsCmdletBase
     {
         [Parameter(
             Mandatory = false,

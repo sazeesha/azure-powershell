@@ -17,7 +17,9 @@ using Microsoft.Azure.Commands.EventHub.Models;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
-
+    /// <summary>
+    /// 'New-AzureRmEventHubAuthorizationRule' Cmdlet creates a new AuthorizationRule
+    /// </summary>
     [Cmdlet(VerbsCommon.New, EventHubAuthorizationRuleVerb, SupportsShouldProcess = true), OutputType(typeof(SharedAccessAuthorizationRuleAttributes))]
     public class NewAzureEventHubAuthorizationRule : AzureEventHubsCmdletBase
     {

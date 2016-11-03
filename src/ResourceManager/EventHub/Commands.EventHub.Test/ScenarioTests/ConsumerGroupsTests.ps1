@@ -18,8 +18,7 @@ Get valid resource group name
 #>
 function Get-ResourceGroupName
 {
-    #return "RGName-" + (getAssetName)
-	return "Default-servicebus-WESTUS"
+    return "RGName-" + (getAssetName)	
 }
 
 <#
@@ -68,9 +67,9 @@ function ConsumerGroupsTests
     
     Write-Debug "  Create resource group"    
     Write-Debug " Resource Group Name : $resourceGroupName"
-    #$Result11 = New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
+    $Result11 = New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
     
-	#Write-Debug $Result11
+	Write-Debug $Result11
 	Write-Debug "  Create new Evnethub namespace"
     Write-Debug " Namespace name : $namespaceName"
     $result = New-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -Location $location
@@ -113,9 +112,7 @@ function ConsumerGroupsTests
 	
 	Write-Debug " Get all created ConsumerGroup "
 	$CreatedConsumerGroups = Get-AzureRmEventHubConsumerGroup -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -EventHubName $result.Name
-
-
-
+	
 	# Cleanup
 	Write-Debug " Delete created ConsumerGroup "
 	Remove-AzureRmEventHubConsumerGroup -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -EventHubName $result.Name -ConsumerGroupName $CreatedConsumerGroup.Name
@@ -127,5 +124,5 @@ function ConsumerGroupsTests
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
 
 	Write-Debug " Delete resourcegroup"
-	# Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 }

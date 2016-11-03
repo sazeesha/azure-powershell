@@ -17,7 +17,9 @@ using Microsoft.Azure.Commands.EventHub.Models;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
 {
-
+    /// <summary>
+    /// 'New-AzureRmEventHubConsumerGroup' Cmdlet creates a new Cosumer Group for Specified Eventhub
+    /// </summary>
     [Cmdlet(VerbsCommon.New, ConsumerGroupVerb, SupportsShouldProcess = true), OutputType(typeof(ConsumerGroupAttributes))]
     public class NewEventHubConsumerGroup : AzureEventHubsCmdletBase
     {

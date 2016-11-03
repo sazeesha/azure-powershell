@@ -19,7 +19,9 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-
+    /// <summary>
+    /// 'Set-AzureRmEventHubNamespace' Cmdlet updates the specified Eventhub Namespace
+    /// </summary>
     [Cmdlet(VerbsCommon.Set, EventHubNamespaceVerb, SupportsShouldProcess = true), OutputType(typeof(NamespaceAttributes))]
     public class SetAzureEventHubNamespace : AzureEventHubsCmdletBase
     {
@@ -71,7 +73,7 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         [Parameter(Mandatory = false,
             ValueFromPipelineByPropertyName = true,
             Position = 6,
-            HelpMessage = "Hashtables which represents resource Tags.")]
+            HelpMessage = "Hashtables which represents resource Tag.")]
         public Hashtable Tag { get; set; }
 
         public override void ExecuteCmdlet()

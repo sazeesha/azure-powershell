@@ -16,7 +16,9 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
-
+    /// <summary>
+    /// 'Remove-AzureRmEventHubAuthorizationRule' Cmdlet removes/deletes AuthorizationRule
+    /// </summary>
     [Cmdlet(VerbsCommon.Remove, EventHubAuthorizationRuleVerb, SupportsShouldProcess = true), OutputType(typeof(bool))]
     public class RemoveAzureEventHubAuthorizationRule : AzureEventHubsCmdletBase
     {

@@ -169,16 +169,21 @@ namespace Microsoft.Azure.Commands.Eventhub
             return true;
         }
 
-        public ResourceListKeys GetNamespaceListKeys(string resourceGroupName, string namespaceName, string authRuleName)
+        public ListKeysAttributes GetNamespaceListKeys(string resourceGroupName, string namespaceName, string authRuleName)
         {
             var listKeys = Client.Namespaces.ListKeys(resourceGroupName, namespaceName, authRuleName);
-            return listKeys;
+            return new ListKeysAttributes(listKeys);
         }
 
-        public ResourceListKeys SetRegenerateKeys(string resourceGroupName, string namespaceName, string authRuleName, RegenerateKeysParameters regenerateKeys)
+        public ListKeysAttributes SetRegenerateKeys(string resourceGroupName, string namespaceName, string authRuleName, string regenerateKeys)
         {
-            var regenerateKeyslistKeys = Client.Namespaces.RegenerateKeys(resourceGroupName, namespaceName, authRuleName, regenerateKeys);
-            return regenerateKeyslistKeys;
+            ResourceListKeys regenerateKeyslistKeys;
+            if(regenerateKeys == "PrimaryKey")
+                regenerateKeyslistKeys = Client.Namespaces.RegenerateKeys(resourceGroupName, namespaceName, authRuleName, new RegenerateKeysParameters(Policykey.PrimaryKey));
+            else
+                regenerateKeyslistKeys = Client.Namespaces.RegenerateKeys(resourceGroupName, namespaceName, authRuleName, new RegenerateKeysParameters(Policykey.SecondaryKey));                       
+
+            return new ListKeysAttributes(regenerateKeyslistKeys);
         }
 
         #endregion
@@ -260,16 +265,22 @@ namespace Microsoft.Azure.Commands.Eventhub
             return true;
         }
 
-        public ResourceListKeys GetEventHubListKeys(string resourceGroupName, string namespaceName, string eventHubName, string authRuleName)
+        public ListKeysAttributes GetEventHubListKeys(string resourceGroupName, string namespaceName, string eventHubName, string authRuleName)
         {
             var listKeys = Client.EventHubs.ListKeys(resourceGroupName, namespaceName, eventHubName, authRuleName);
-            return listKeys;
+            return new ListKeysAttributes(listKeys);
         }
 
-        public ResourceListKeys SetRegenerateKeys(string resourceGroupName, string namespaceName, string eventHubName, string authRuleName, RegenerateKeysParameters regenerateKeys)
-        {
-            var regenerateKeyslistKeys = Client.EventHubs.RegenerateKeys(resourceGroupName, namespaceName, eventHubName, authRuleName, regenerateKeys);
-            return regenerateKeyslistKeys;
+        public ListKeysAttributes SetRegenerateKeys(string resourceGroupName, string namespaceName, string eventHubName, string authRuleName, string regenerateKeys)
+        {           
+            ResourceListKeys regenerateKeyslistKeys;
+            if (regenerateKeys == "PrimaryKey")
+                regenerateKeyslistKeys = Client.EventHubs.RegenerateKeys(resourceGroupName, namespaceName, eventHubName, authRuleName, new RegenerateKeysParameters(Policykey.PrimaryKey));
+            else
+                regenerateKeyslistKeys = Client.EventHubs.RegenerateKeys(resourceGroupName, namespaceName, eventHubName, authRuleName, new RegenerateKeysParameters(Policykey.SecondaryKey));
+
+            return new ListKeysAttributes(regenerateKeyslistKeys);
+
         }
 
         #endregion

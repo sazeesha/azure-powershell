@@ -19,10 +19,19 @@ using Microsoft.Azure.Commands.EventHub.Models;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
 {
-
+    /// <summary>
+    /// 'Get-AzureRmEventHubConsumerGroup' Cmdlet gives the details of a / List of Consumer Group
+    /// <para> If consumerGroup name provided, a single Consumergroup detials will be returned</para>
+    /// <para> If consumerGroup name not provided, list of Consumergroups will be returned</para>
+    /// </summary>
     [Cmdlet(VerbsCommon.Get, ConsumerGroupVerb), OutputType(typeof(List<ConsumerGroupAttributes>))]
     public class GetAzureRmEventHubConsumerGroup : AzureEventHubsCmdletBase
     {
+
+        /// <summary>
+        /// Resource Group Name
+        /// </summary>
+        /// <remarks>Paramaeter value is required</remarks>
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
             Position = 0,
@@ -30,6 +39,10 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
         [ValidateNotNullOrEmpty]
          public string ResourceGroupName { get; set; }
 
+        /// <summary>
+        /// Name Space Name. 
+        /// </summary>
+        /// <remarks>Paramaeter value is required</remarks>
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
             Position = 1,
@@ -37,12 +50,22 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.ConsumerGroup
         [ValidateNotNullOrEmpty]
         public string NamespaceName { get; set; }
 
-        [Parameter(Mandatory = false,
+        /// <summary>
+        /// EventHub Name. 
+        /// </summary>
+        /// <remarks>Paramaeter value is required</remarks>
+        [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
             Position = 2,
             HelpMessage = "EventHub Name.")]
         public string EventHubName { get; set; }
 
+        /// <summary>
+        /// Consumer Group Name.
+        /// <para> If consumerGroup name provided, a single Consumergroup detials will be returned</para>
+        /// <para> If consumerGroup name not provided, list of Consumergroups will be returned</para>
+        /// </summary>
+        /// <remarks>Paramaeter value is not required to see the List</remarks>
         [Parameter(Mandatory = false,
             ValueFromPipelineByPropertyName = true,
             Position = 3,

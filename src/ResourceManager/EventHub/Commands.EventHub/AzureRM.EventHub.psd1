@@ -9,10 +9,10 @@
 @{  
   
 # Version number of this module.  
-ModuleVersion = '2.0.1' 
+ModuleVersion = '0.0.1' 
   
 # ID used to uniquely identify this module  
-GUID = 'cc69c625-e961-43f4-8b50-0061eba6e4b6'  
+GUID = '5728d353-7ad5-42d8-b00a-46aaecf07b91'  
   
 # Author of this module  
 Author = 'Microsoft Corporation'  
@@ -45,7 +45,7 @@ CLRVersion='4.0'
 ProcessorArchitecture = 'None'  
   
 # Modules that must be imported into the global environment prior to importing this module  
-RequiredModules = @( @{ ModuleName = 'AzureRM.Profile'; ModuleVersion = '2.0.1'})
+RequiredModules = @( @{ ModuleName = 'AzureRM.Profile'; ModuleVersion = '2.2.0'})
   
 # Assemblies that must be loaded prior to importing this module  
 RequiredAssemblies = @()  
@@ -88,7 +88,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+          Tags = @("Azure", "ResourceManager", "ARM", "EventHub")
 
         # A URL to the license for this module.
         LicenseUri = 'https://raw.githubusercontent.com/Azure/azure-powershell/dev/LICENSE.txt'

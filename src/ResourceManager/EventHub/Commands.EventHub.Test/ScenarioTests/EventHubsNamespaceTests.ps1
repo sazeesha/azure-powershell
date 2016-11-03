@@ -18,8 +18,7 @@ Get ResourceGroup name
 #>
 function Get-ResourceGroupName
 {
-     #return "RGName-" + (getAssetName)
-	return "Default-servicebus-WESTUS"
+     return "RGName-" + (getAssetName)
 }
 
 <#
@@ -50,7 +49,6 @@ function Get-AuthorizationRuleName
 	
 }
 
-
 <#
 .SYNOPSIS
 Tests EventHub Namespace Create List Remove operations.
@@ -65,6 +63,7 @@ function EventHubsNamespaceTests
  
     Write-Debug "Create resource group"
     $resourceGroupName = Get-ResourceGroupName
+	New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force 
      
     Write-Debug " Create new eventHub namespace"
     Write-Debug "NamespaceName : $namespaceName" 
@@ -146,7 +145,7 @@ function EventHubsNamespaceTests
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
 
 	Write-Debug " Delete resourcegroup"
-	#Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 }
 
 <#
@@ -166,7 +165,7 @@ function EventHubsNamespaceAuthTests
     
     Write-Debug " Create resource group"    
     Write-Debug "ResourceGroup name : $resourceGroupName"
-    #New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force    
+    New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force    
     
     Write-Debug " Create new Eventhub namespace"
     Write-Debug "Namespace name : $namespaceName"
@@ -296,6 +295,6 @@ function EventHubsNamespaceAuthTests
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
 
 	Write-Debug " Delete resourcegroup"
-	#Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 	   
 }

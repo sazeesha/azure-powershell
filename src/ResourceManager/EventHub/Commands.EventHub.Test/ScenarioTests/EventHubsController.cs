@@ -13,7 +13,7 @@
 // ----------------------------------------------------------------------------------
 
 using Microsoft.Azure.Commands.Common.Authentication;
-using Microsoft.Azure.Gallery;
+//using Microsoft.Azure.Gallery;
 using Microsoft.Azure.Management.Authorization;
 using Microsoft.Azure.Management.Resources;
 using Microsoft.Azure.Management.Storage;
@@ -48,7 +48,7 @@ namespace Microsoft.Azure.Commands.EventHub.Test.ScenarioTests
 
         public AuthorizationManagementClient AuthorizationManagementClient { get; private set; }
 
-        public GalleryClient GalleryClient { get; private set; }
+        //public GalleryClient GalleryClient { get; private set; }
 
         public string UserDomain { get; private set; }
 
@@ -147,14 +147,21 @@ namespace Microsoft.Azure.Commands.EventHub.Test.ScenarioTests
             SubscriptionClient = GetSubscriptionClient();
             EventHubsManagementClient = GetEventHubsManagementClient(context);
             AuthorizationManagementClient = GetAuthorizationManagementClient();
-            GalleryClient = GetGalleryClient();
+            //GalleryClient = GetGalleryClient();
 
+            //var armStorageManagementClient = GetArmStorageManagementClient();
+            //helper.SetupManagementClients(ResourceManagementClient,
+            //    SubscriptionClient,
+            //    EventHubsManagementClient,
+            //    AuthorizationManagementClient,
+            //    GalleryClient,
+            //    armStorageManagementClient
+            //    );
             var armStorageManagementClient = GetArmStorageManagementClient();
             helper.SetupManagementClients(ResourceManagementClient,
                 SubscriptionClient,
                 EventHubsManagementClient,
-                AuthorizationManagementClient,
-                GalleryClient,
+                AuthorizationManagementClient,                
                 armStorageManagementClient
                 );
         }
@@ -183,10 +190,10 @@ namespace Microsoft.Azure.Commands.EventHub.Test.ScenarioTests
             return LegacyTest.TestBase.GetServiceClient<SubscriptionClient>(this.csmTestFactory);
         }
 
-        private GalleryClient GetGalleryClient()
-        {
-            return LegacyTest.TestBase.GetServiceClient<GalleryClient>(this.csmTestFactory);
-        }
+        //private GalleryClient GetGalleryClient()
+        //{
+        //    return LegacyTest.TestBase.GetServiceClient<GalleryClient>(this.csmTestFactory);
+        //}
 
     }
 }

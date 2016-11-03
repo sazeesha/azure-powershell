@@ -18,9 +18,11 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
-
+    /// <summary>
+    /// 'New-AzureRmEventHub' Cmdlet creates a new EventHub
+    /// </summary>
     [Cmdlet(VerbsCommon.New, EventHubVerb, SupportsShouldProcess = true), OutputType(typeof(EventHubAttributes))]
-    public class NewAzureEventHub : AzureEventHubsCmdletBase
+    public class NewAzureRmEventHub : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,

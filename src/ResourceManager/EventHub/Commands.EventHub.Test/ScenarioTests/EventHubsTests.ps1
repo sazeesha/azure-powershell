@@ -18,8 +18,7 @@ Get valid resource group name
 #>
 function Get-ResourceGroupName
 {
-     #return "RGName-" + (getAssetName)
-	return "Default-servicebus-WESTUS"	
+	return "RGName-" + (getAssetName)	 
 }
 
 <#
@@ -69,7 +68,7 @@ function EventHubsTests
 	# Create Resource Group
     Write-Debug "Create resource group"    
     Write-Debug " Resource Group Name : $resourceGroupName"
-    #New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
+    New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
 	
 	    
     # Create EventHub Namespace
@@ -153,7 +152,7 @@ function EventHubsTests
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
 
 	Write-Debug " Delete resourcegroup"
-	#Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 }
 
 <#
@@ -175,7 +174,7 @@ function EventHubsAuthTests
 	# Create ResourceGroup
     Write-Debug " Create resource group"    
     Write-Debug "Resource group name : $resourceGroupName"
-  #  New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
+    New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
 	   
     # Create EventHub Namespace 
     Write-Debug " Create new Eventhub namespace"
@@ -291,12 +290,12 @@ function EventHubsAuthTests
 	# Regentrate the Keys 
 	$policyKey = "PrimaryKey"
 
-	$namespaceRegenerateKeys = New-AzureRmEventHubKey -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -EventHubName $result_eventHub.Name -AuthorizationRule $authRuleName -RegenerateKeys $policyKey
+	$namespaceRegenerateKeys = New-AzureRmEventHubKey -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -EventHubName $result_eventHub.Name -AuthorizationRule $authRuleName -RegenerateKey $policyKey
 	Assert-True {$namespaceRegenerateKeys.PrimaryKey -ne $namespaceListKeys.PrimaryKey}
 
 	$policyKey1 = "SecondaryKey"
 
-	$namespaceRegenerateKeys1 = New-AzureRmEventHubKey -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -EventHubName $result_eventHub.Name -AuthorizationRule $authRuleName -RegenerateKeys $policyKey1
+	$namespaceRegenerateKeys1 = New-AzureRmEventHubKey -ResourceGroup $resourceGroupName -NamespaceName $namespaceName -EventHubName $result_eventHub.Name -AuthorizationRule $authRuleName -RegenerateKey $policyKey1
 	Assert-True {$namespaceRegenerateKeys1.SecondaryKey -ne $namespaceListKeys.SecondaryKey}
 
 
@@ -311,5 +310,5 @@ function EventHubsAuthTests
     Remove-AzureRmEventHubNamespace -ResourceGroup $resourceGroupName -NamespaceName $namespaceName
 
 	Write-Debug " Delete resourcegroup"
-	#Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
+	Remove-AzureRmResourceGroup -Name $resourceGroupName -Force
 }

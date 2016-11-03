@@ -13,19 +13,23 @@
 // ----------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.EventHub.Models;
+using Microsoft.Azure.Commands.EventHub.Models;
 using System.Management.Automation;
 
-namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
+namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
 {
-    [Cmdlet(VerbsCommon.New, EventHubKeyVerb, SupportsShouldProcess = true), OutputType(typeof(ResourceListKeys))]
-    public class NewAzureEventHubKey : AzureEventHubsCmdletBase
+    /// <summary>
+    /// 'Get-AzureRmEventHubKey' Cmdlet gives key detials for the given EventHub Authorization Rule
+    /// </summary>
+    [Cmdlet(VerbsCommon.Get, EventHubKeyVerb), OutputType(typeof(ListKeysAttributes))]
+    public class GetAzureEventHubKey : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
             Position = 0,
-            HelpMessage = "The name of the resource group")]
+            HelpMessage = "Resource Group Name.")]
         [ValidateNotNullOrEmpty]
-        public string ResourceGroup { get; set; }
+         public string ResourceGroupName { get; set; }
 
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -44,26 +48,14 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
             Position = 3,
-            HelpMessage = "Authorization Rule Name.")]        
+            HelpMessage = "EventHub AuthorizationRule Name.")]
         [ValidateNotNullOrEmpty]
-        public string AuthorizationRule { get; set; }        
-
-        [Parameter(Mandatory = true,
-            Position = 4,
-            ParameterSetName = RegenerateKeySetName,
-            HelpMessage = "Regenerate Keys - 'PrimaryKey'/'SecondaryKey'.")]
-        [ValidateSet(RegeneKeys.PrimaryKey,
-            RegeneKeys.SecondaryKey,
-            IgnoreCase = true)]
-        [ValidateNotNullOrEmpty]        
-        public string RegenerateKey { get; set; }
+        public string AuthorizationRule { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            var regenKey = new RegenerateKeysParameters(ParsePolicyKey(RegenerateKey));
-
             // Get a EventHub List Keys for the specified AuthorizationRule
-            ResourceListKeys keys = Client.SetRegenerateKeys(ResourceGroup, NamespaceName, EventHubName, AuthorizationRule, regenKey);
+            ListKeysAttributes keys = Client.GetEventHubListKeys(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
             WriteObject(keys);
         }
     }

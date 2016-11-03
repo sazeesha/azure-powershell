@@ -13,12 +13,16 @@
 // ----------------------------------------------------------------------------------
 
 using Microsoft.Azure.Management.EventHub.Models;
+using Microsoft.Azure.Commands.EventHub.Models;
 using System.Management.Automation;
 
-namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
+namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-    [Cmdlet(VerbsCommon.Get, EventHubKeyVerb), OutputType(typeof(ResourceListKeys))]
-    public class GetAzureEventHubListKeys : AzureEventHubsCmdletBase
+    /// <summary>
+    /// 'Get-AzureRmEventHubNamespaceKey' Cmdlet gives key detials for the given EventHub Namespace Authorization Rule
+    /// </summary>
+    [Cmdlet(VerbsCommon.Get, EventHubNamespaceKeyVerb), OutputType(typeof(ListKeysAttributes))]
+    public class GetAzureRmEventHubNamespaceKey : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
@@ -30,28 +34,21 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
             Position = 1,
-            HelpMessage = "Namespace Name.")]
+            HelpMessage = "EventHub Namespace Name.")]
         [ValidateNotNullOrEmpty]
         public string NamespaceName { get; set; }
 
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,
             Position = 2,
-            HelpMessage = "EventHub Name.")]
-        [ValidateNotNullOrEmpty]
-        public string EventHubName { get; set; }
-
-        [Parameter(Mandatory = true,
-            ValueFromPipelineByPropertyName = true,
-            Position = 3,
-            HelpMessage = "EventHub AuthorizationRule Name.")]
+            HelpMessage = "EventHub Namespace AuthorizationRule Name.")]
         [ValidateNotNullOrEmpty]
         public string AuthorizationRule { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            // Get a EventHub List Keys for the specified AuthorizationRule
-            ResourceListKeys keys = Client.GetEventHubListKeys(ResourceGroupName, NamespaceName, EventHubName, AuthorizationRule);
+            // Get a EventHub namespace List Keys for the specified AuthorizationRule
+            ListKeysAttributes keys = Client.GetNamespaceListKeys(ResourceGroupName, NamespaceName, AuthorizationRule);
             WriteObject(keys);
         }
     }

@@ -16,9 +16,11 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-
+    /// <summary>
+    /// 'Remove-AzureRmEventHubNamespace' Cmdlet deletes the specified Eventhub Namespace
+    /// </summary>
     [Cmdlet(VerbsCommon.Remove, EventHubNamespaceVerb, SupportsShouldProcess = true)]
-    public class RemoveAzureEventHubNamespace : AzureEventHubsCmdletBase
+    public class RemoveAzureRmEventHubNamespace : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,

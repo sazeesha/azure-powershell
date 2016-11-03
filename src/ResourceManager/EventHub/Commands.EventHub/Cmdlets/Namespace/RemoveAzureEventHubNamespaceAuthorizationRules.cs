@@ -16,9 +16,11 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
 {
-
+    /// <summary>
+    /// 'Remove-AzureRmEventHubNamespaceAuthorizationRule' Cmdlet deletes specified Eventhub Namespace AuthorizationRule
+    /// </summary>
     [Cmdlet(VerbsCommon.Remove, EventHubNamespaceAuthorizationRuleVerb, SupportsShouldProcess = true), OutputType(typeof(bool))]
-    public class RemoveAzureEventHubNamespaceAuthorizationRule : AzureEventHubsCmdletBase
+    public class RemoveAzureRmEventHubNamespaceAuthorizationRule : AzureEventHubsCmdletBase
     {
         [Parameter(Mandatory = true,
             ValueFromPipelineByPropertyName = true,

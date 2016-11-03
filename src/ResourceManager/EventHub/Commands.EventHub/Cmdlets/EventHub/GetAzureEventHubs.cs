@@ -18,7 +18,12 @@ using System.Linq;
 using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.EventHub.Commands.EventHub
-{
+{    
+    /// <summary>
+    /// 'Get-AzureRmEventHub' Cmdlet gives the details of a / List of EventHub(s)
+    /// <para> If EventHub name provided, a single EventHub detials will be returned</para>
+    /// <para> If EventHub name not provided, list of EventHub will be returned</para>
+    /// </summary>
     [Cmdlet(VerbsCommon.Get, "AzureRmEventHub"), OutputType(typeof(List<EventHubAttributes>))]
     public class GetAzureRmEventHub : AzureEventHubsCmdletBase
     {
