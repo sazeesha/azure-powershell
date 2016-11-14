@@ -18,7 +18,7 @@ Get ResourceGroup name
 #>
 function Get-ResourceGroupName
 {
-     return "RGName-" + (getAssetName)
+    return "RGName-" + (getAssetName)
 }
 
 <#
@@ -53,7 +53,7 @@ function Get-AuthorizationRuleName
 .SYNOPSIS
 Tests EventHub Namespace Create List Remove operations.
 #>
-function EventHubsNamespaceTests 
+function NamespaceTests 
 {
     # Setup    
     $location = Get-Location
@@ -152,7 +152,7 @@ function EventHubsNamespaceTests
 .SYNOPSIS
 Tests EventHub Namespace AuthorizationRules Create List Remove operations.
 #>
-function EventHubsNamespaceAuthTests
+function NamespaceAuthTests
 {
     # Setup    
     $location = Get-Location

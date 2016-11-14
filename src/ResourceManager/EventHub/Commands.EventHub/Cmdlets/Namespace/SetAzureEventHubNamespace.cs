@@ -57,22 +57,19 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
           IgnoreCase = true)]
         public string SkuName { get; set; }
 
-        [Parameter(
-          Position = 4,
+        [Parameter(          
           Mandatory = false,
           ValueFromPipelineByPropertyName = true,
           HelpMessage = "The eventhub throughput units.")]
         public int? SkuCapacity { get; set; }
 
         [Parameter(Mandatory = false,
-            ValueFromPipelineByPropertyName = true,
-            Position = 5,
+            ValueFromPipelineByPropertyName = true,            
             HelpMessage = "Disable/Enable Namespace.")]
         public Management.EventHub.Models.NamespaceState? State { get; set; }
 
         [Parameter(Mandatory = false,
             ValueFromPipelineByPropertyName = true,
-            Position = 6,
             HelpMessage = "Hashtables which represents resource Tag.")]
         public Hashtable Tag { get; set; }
 

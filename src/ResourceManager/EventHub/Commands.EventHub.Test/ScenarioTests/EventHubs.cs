@@ -19,18 +19,25 @@ namespace Microsoft.Azure.Commands.EventHub.Test.ScenarioTests
     using ServiceManagemenet.Common.Models;
     using Xunit;
     using Xunit.Abstractions;
-    public class ConsumerGroupsTests : RMTestBase
+    public class EventHubsTests : RMTestBase
     {
-        public ConsumerGroupsTests(ITestOutputHelper output)
+        public EventHubsTests(ITestOutputHelper output)
         {
             XunitTracingInterceptor.AddToContext(new XunitTracingInterceptor(output));
         }
 
         [Fact]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
-        public void TestConsumerGroupsCRUD()
+        public void EventHubsCRUD()
         {
-            EventHubsController.NewInstance.RunPsTest("ConsumerGroupsTests");
+            EventHubsController.NewInstance.RunPsTest("EventHubsTests");
+        }
+
+        [Fact]
+        [Trait(Category.AcceptanceType, Category.CheckIn)]
+        public void EventHubsAuthorizationRulesCRUD()
+        {
+            EventHubsController.NewInstance.RunPsTest("EventHubsAuthTests");
         }
     }
 }

@@ -121,10 +121,6 @@ namespace Microsoft.Azure.Commands.EventHub.Commands
 
         #region TagsHelper
 
-       
-        
-
-
         public Dictionary<string, string> ConvertTagsToDictionary(Hashtable tags)
         {
             if (tags != null)

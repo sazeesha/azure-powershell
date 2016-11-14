@@ -19,6 +19,7 @@ Get valid resource group name
 function Get-ResourceGroupName
 {
     return "RGName-" + (getAssetName)	
+	
 }
 
 <#
@@ -65,9 +66,10 @@ function ConsumerGroupsTests
 	update-NameInResourceFile "NewEventHub.json" $eventHubName
 	update-NameInResourceFile "NewConsumerGroup.json" $eventHubName
     
-    Write-Debug "  Create resource group"    
+    Write-Debug "  Create resource group"
     Write-Debug " Resource Group Name : $resourceGroupName"
     $Result11 = New-AzureRmResourceGroup -Name $resourceGroupName -Location $location -Force
+	
     
 	Write-Debug $Result11
 	Write-Debug "  Create new Evnethub namespace"

@@ -63,7 +63,6 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         /// Namespace Sku Name.
         /// </summary>
         [Parameter(
-          Position = 3,
           Mandatory = false,
           ValueFromPipelineByPropertyName = true,
           HelpMessage = "Namespace Sku Name.")]
@@ -78,7 +77,6 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         /// The eventhub throughput units.
         /// </summary>
         [Parameter(
-          Position = 4,
           Mandatory = false,
           ValueFromPipelineByPropertyName = true,
           HelpMessage = "The eventhub throughput units.")]
@@ -88,7 +86,6 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         /// Indicates whether to create ACS namespace.
         /// </summary>
         [Parameter(
-          Position = 5,
           Mandatory = false,
           ValueFromPipelineByPropertyName = true,
           HelpMessage = "Indicates whether to create ACS namespace.")]
@@ -100,7 +97,6 @@ namespace Microsoft.Azure.Commands.EventHub.Commands.Namespace
         [Parameter(
             Mandatory = false,
             ValueFromPipelineByPropertyName = true,
-            Position = 6,
             HelpMessage = "Hashtables which represents resource Tags.")]
         public Hashtable Tag { get; set; }
 

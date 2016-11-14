@@ -19,25 +19,25 @@ namespace Microsoft.Azure.Commands.EventHub.Test.ScenarioTests
     using ServiceManagemenet.Common.Models;
     using Xunit;
     using Xunit.Abstractions;
-    public class EventHubsTests : RMTestBase
+    public class NamespaceTests : RMTestBase
     {
-        public EventHubsTests(ITestOutputHelper output)
+        public NamespaceTests(ITestOutputHelper output)
         {
             XunitTracingInterceptor.AddToContext(new XunitTracingInterceptor(output));
         }
 
         [Fact]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
-        public void TestEventHubsCRUD()
+        public void NamespaceCRUD()
         {
-            EventHubsController.NewInstance.RunPsTest("EventHubsTests");
+            EventHubsController.NewInstance.RunPsTest("NamespaceTests");
         }
 
         [Fact]
         [Trait(Category.AcceptanceType, Category.CheckIn)]
-        public void TestEventHubsAuthorizationRulesCRUD()
+        public void NamespaceAuthorizationRulesCRUD()
         {
-            EventHubsController.NewInstance.RunPsTest("EventHubsAuthTests");
+            EventHubsController.NewInstance.RunPsTest("NamespaceAuthTests");
         }
     }
 }
